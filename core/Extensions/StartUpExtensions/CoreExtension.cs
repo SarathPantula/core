@@ -20,6 +20,7 @@ public static class CoreExtension
         services.ConfigureBaseExtensions();
         services.ConfigureNewtonsoftJson();
         services.ConfigureSwagger(configuration);
+        services.ConfigureUnitOfWorkServices();
 
         return services;
     }
