@@ -21,6 +21,7 @@ public static class CoreExtension
         services.ConfigureNewtonsoftJson();
         services.ConfigureSwagger(configuration);
         services.ConfigureUnitOfWorkServices();
+        services.ConfigureValidationBehaviorExtensions();
 
         return services;
     }
