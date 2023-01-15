@@ -16,11 +16,7 @@ public static class CoreExtension
     /// <returns></returns>
     public static IServiceCollection ConfigureCoreExtensions(this IServiceCollection services, IConfiguration configuration)
     {
-        services.ConfigureIOptions(configuration);
-        services.ConfigureBaseExtensions();
-        services.ConfigureNewtonsoftJson();
-        services.ConfigureSwagger(configuration);
-        services.ConfigureUnitOfWorkServices();
+        services.ConfigureBaseExtensions(configuration);
         services.ConfigureValidationBehaviorExtensions();
 
         return services;
