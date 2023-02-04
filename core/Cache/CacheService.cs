@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using StackExchange.Redis;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 namespace core.Cache;
 
@@ -8,71 +8,48 @@ namespace core.Cache;
 /// </summary>
 public class CacheService : ICacheService
 {
-    private readonly IDatabase _db;
+    private readonly IDistributedCache _cache;
+
     /// <summary>
     /// ctor
     /// </summary>
-    public CacheService()
+    public CacheService(IDistributedCache cache)
     {
-        _db = RedisConnectionHelper.Connection.GetDatabase();
+        _cache = cache;
     }
 
     /// <summary>
-    /// GetData
+    /// GetOrCreateAsync
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="key"></param>
     /// <returns></returns>
-    public T GetData<T>(string key)
+    public async Task<T> GetAsync<T>(string key) where T : class
     {
-        var value = _db.StringGet(key);
-        if (!string.IsNullOrEmpty(value))
+        var cachedData = await _cache.GetStringAsync(key);
+        if (!string.IsNullOrEmpty(cachedData))
         {
-            return JsonConvert.DeserializeObject<T>(value!)!;
+            return JsonConvert.DeserializeObject<T>(cachedData)!;
         }
-        return default!;
+
+        return null!;
     }
 
     /// <summary>
-    /// SetData
+    /// GetOrCreateAsync
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="key"></param>
-    /// <param name="value"></param>
+    /// <param name="data"></param>
+    /// <param name="expiresIn"></param>
     /// <returns></returns>
-    public bool SetData<T>(string key, T value)
+    public async Task CreateAsync<T>(string key, T data, TimeSpan? expiresIn = null) where T : class
     {
-        var isSet = _db.StringSet(key, JsonConvert.SerializeObject(value));
-        return isSet;
-    }
+        expiresIn ??= TimeSpan.FromDays(1);
 
-    /// <summary>
-    /// SetData
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <param name="expirationTime"></param>
-    /// <returns></returns>
-    public bool SetData<T>(string key, T value, DateTimeOffset expirationTime)
-    {
-        TimeSpan expiryTime = expirationTime.DateTime.Subtract(DateTime.Now);
-        var isSet = _db.StringSet(key, JsonConvert.SerializeObject(value), expiryTime);
-        return isSet;
-    }
-
-    /// <summary>
-    /// RemoveData
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    public bool RemoveData(string key)
-    {
-        bool _isKeyExist = _db.KeyExists(key);
-        if (_isKeyExist)
+        var options = new DistributedCacheEntryOptions
         {
-            return _db.KeyDelete(key);
-        }
-        return false;
+            AbsoluteExpiration = expiresIn.HasValue ? DateTime.Now.Add(expiresIn.Value) : (DateTime?)null
+        };
+        await _cache.SetStringAsync(key, JsonConvert.SerializeObject(data), options);
     }
 }

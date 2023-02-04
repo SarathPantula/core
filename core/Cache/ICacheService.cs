@@ -6,36 +6,19 @@
 public interface ICacheService
 {
     /// <summary>
-    /// Get Data using key
+    /// GetOrCreateAsync
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    Task<T> GetAsync<T>(string key) where T : class;
+
+    /// <summary>
+    /// GetOrCreateAsync
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <param name="expiresIn"></param>
     /// <returns></returns>
-    T GetData<T>(string key);
-
-    /// <summary>
-    /// SetData
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    bool SetData<T>(string key, T value);
-
-    /// <summary>
-    /// Set Data with Value and Expiration Time of Key
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <param name="expirationTime"></param>
-    /// <returns></returns>
-    bool SetData<T>(string key, T value, DateTimeOffset expirationTime);
-
-    /// <summary>
-    /// Remove Data
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    bool RemoveData(string key);
+    Task CreateAsync<T>(string key, T data, TimeSpan? expiresIn = null) where T : class;
 }

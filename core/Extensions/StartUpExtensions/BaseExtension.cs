@@ -33,13 +33,7 @@ public static class BaseExtension
         RegisterNewtonsoftServices(services);
         RegisterSwaggerServices(services, configuration);
         RegisterValidationBehaviorServices(services);
-
-        services.AddStackExchangeRedisCache(options =>
-        {
-            options.Configuration = "localhost";
-            options.InstanceName = "SampleInstance";
-        });
-        services.AddScoped<IDistributedCache, RedisCache>();
+        RegisterRedisCacheServices(services);
 
         return services;
     }
@@ -103,5 +97,15 @@ public static class BaseExtension
     private static void RegisterValidationBehaviorServices(IServiceCollection services)
     {
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+    }
+
+    private static void RegisterRedisCacheServices(IServiceCollection services)
+    {
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = "localhost";
+            options.InstanceName = "SampleInstance";
+        });
+        services.AddScoped<IDistributedCache, RedisCache>();
     }
 }
