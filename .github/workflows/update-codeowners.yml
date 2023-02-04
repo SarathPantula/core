@@ -1,0 +1,33 @@
+name: 'update-codeowners'
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # Read the notes about preventing merges overwriting owners created by PR
+    if:  ${{ !startsWith( github.event.head_commit.message, 'Merge pull request' ) }}
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - name: create CODEOWNERS
+        id: codeowners
+        uses: dmikov/github-action-codeowners-last@main
+        with:
+          number_of_code_owners: 2
+      - name: commit CODEOWNERS
+        if: ${{ steps.codeowners.outputs.file }}
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: 'commit CODEOWNERS'
+          add: ${{ steps.codeowners.outputs.file }}
+          push: origin main --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
