@@ -12,6 +12,7 @@ using core.Base;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
+using core.Cache;
 
 namespace core.Extensions.StartUpExtensions;
 
@@ -107,5 +108,6 @@ public static class BaseExtension
             options.InstanceName = "SampleInstance";
         });
         services.AddScoped<IDistributedCache, RedisCache>();
+        services.AddScoped<ICacheService, CacheService>();
     }
 }
