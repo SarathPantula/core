@@ -22,8 +22,9 @@ public class CacheService : ICacheService
     /// GetOrCreateAsync
     /// </summary>
     /// <param name="key"></param>
+    /// <param name="factory"></param>
     /// <returns></returns>
-    public async Task<T> GetAsync<T>(string key) where T : class
+    public async Task<T> GetAsync<T>(string key, Func<Task<T>> factory) where T : class
     {
         var cachedData = await _cache.GetStringAsync(key);
         if (!string.IsNullOrEmpty(cachedData))
@@ -31,7 +32,10 @@ public class CacheService : ICacheService
             return JsonConvert.DeserializeObject<T>(cachedData)!;
         }
 
-        return null!;
+        var data = await factory();
+        await CreateAsync(key, data);
+
+        return data;
     }
 
     /// <summary>

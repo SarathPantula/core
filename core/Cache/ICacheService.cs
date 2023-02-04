@@ -9,8 +9,9 @@ public interface ICacheService
     /// GetOrCreateAsync
     /// </summary>
     /// <param name="key"></param>
+    /// <param name="factory"></param>
     /// <returns></returns>
-    Task<T> GetAsync<T>(string key) where T : class;
+    Task<T> GetAsync<T>(string key, Func<Task<T>> factory) where T : class;
 
     /// <summary>
     /// GetOrCreateAsync
