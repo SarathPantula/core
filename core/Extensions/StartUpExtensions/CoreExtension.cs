@@ -17,7 +17,6 @@ public static class CoreExtension
     public static IServiceCollection ConfigureCoreExtensions(this IServiceCollection services, IConfiguration configuration)
     {
         services.ConfigureBaseExtensions(configuration);
-        services.ConfigureValidationBehaviorExtensions();
 
         return services;
     }
