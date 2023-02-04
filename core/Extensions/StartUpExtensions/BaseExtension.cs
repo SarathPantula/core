@@ -104,7 +104,7 @@ public static class BaseExtension
     {
         services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = "localhost:6379,abortConnect=false";
+            options.Configuration = "redis:6379,abortConnect=false";
             options.InstanceName = "SampleInstance";
         });
         services.AddScoped<IDistributedCache, RedisCache>();
