@@ -15,7 +15,7 @@ public static class RedisCacheExtension
     /// </summary>
     /// <param name="services">IServices Collection</param>
     /// <returns>Returns <see cref="IServiceCollection"/></returns>
-    public static IServiceCollection RegisterRedisCacheServices(IServiceCollection services)
+    public static IServiceCollection RegisterRedisCacheServices(this IServiceCollection services)
     {
         services.AddStackExchangeRedisCache(options =>
         {

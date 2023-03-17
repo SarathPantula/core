@@ -14,7 +14,7 @@ public static class UnitOfWorkExtension
     /// </summary>
     /// <param name="services">IServices Collection</param>
     /// <returns>Returns <see cref="IServiceCollection"/></returns>
-    public static IServiceCollection RegisterUnitOfWorkServices(IServiceCollection services)
+    public static IServiceCollection RegisterUnitOfWorkServices(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
