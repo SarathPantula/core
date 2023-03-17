@@ -1,18 +1,13 @@
-﻿using core.Base.UnitOfWork;
+﻿using core.Base;
 using core.Models.AppSettings;
-using core.Repositories;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using System.Reflection;
-using core.Base;
-using MediatR;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
-using core.Cache;
 
 namespace core.Extensions.StartUpExtensions;
 
@@ -30,11 +25,9 @@ public static class BaseExtension
     public static IServiceCollection ConfigureBaseExtensions(this IServiceCollection services, IConfiguration configuration)
     {
         RegisterIOptionsServices(services, configuration);
-        RegisterUnitOfWorkServices(services);
         RegisterNewtonsoftServices(services);
         RegisterSwaggerServices(services, configuration);
         RegisterValidationBehaviorServices(services);
-        RegisterRedisCacheServices(services);
 
         return services;
     }
@@ -51,12 +44,6 @@ public static class BaseExtension
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         });
-    }
-
-    private static void RegisterUnitOfWorkServices(IServiceCollection services)
-    {
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
     }
 
     private static void RegisterIOptionsServices(IServiceCollection services, IConfiguration configuration)
@@ -98,16 +85,5 @@ public static class BaseExtension
     private static void RegisterValidationBehaviorServices(IServiceCollection services)
     {
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-    }
-
-    private static void RegisterRedisCacheServices(IServiceCollection services)
-    {
-        services.AddStackExchangeRedisCache(options =>
-        {
-            options.Configuration = "redis:6379,abortConnect=false";
-            options.InstanceName = "SampleInstance";
-        });
-        services.AddScoped<IDistributedCache, RedisCache>();
-        services.AddScoped<ICacheService, CacheService>();
     }
 }
