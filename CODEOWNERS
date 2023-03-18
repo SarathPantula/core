@@ -10,5 +10,4 @@ core/Extensions/StartUpExtensions/LoggingExtension.cs @SarathPantula
 core/Models/AppSettings/ConnectionStringSettings.cs @SarathPantula
 core/Models/AppSettings/LoggingSettings.cs @SarathPantula
 core/Models/AppSettings/SwaggerSettings.cs @SarathPantula
-core/Utilities/LoggingConfiguration.cs @SarathPantula
 core/Models/AppSettings/AzureBlobSettings.cs @SarathPantula
