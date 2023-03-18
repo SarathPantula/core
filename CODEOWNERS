@@ -5,3 +5,4 @@ core/Extensions/StartUpExtensions/RedisCacheExtension.cs @SarathPantula
 core/Extensions/StartUpExtensions/UnitOfWorkExtension.cs @SarathPantula
 core/Models/DefaultResponses/DefaultResponse.cs @SarathPantula
 core/core.csproj @SarathPantula
+core/Models/AppSettings/ConnectionStringsConfiguration.cs @SarathPantula
