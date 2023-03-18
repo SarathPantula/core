@@ -3,7 +3,7 @@
 /// <summary>
 /// Swagger Configuration
 /// </summary>
-public sealed class SwaggerConfiguration
+public class SwaggerSettings
 {
     /// <summary>
     /// Title

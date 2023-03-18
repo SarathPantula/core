@@ -3,7 +3,7 @@
 /// <summary>
 /// ConnectionStrings
 /// </summary>
-public class ConnectionStringsConfiguration
+public class ConnectionStringSettings
 {
     /// <summary>
     /// PostgresConnectionString

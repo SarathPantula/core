@@ -48,13 +48,13 @@ public static class BaseExtension
 
     private static void RegisterIOptionsServices(IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<ConnectionStringsConfiguration>(options => configuration.GetSection("ConnectionStrings").Bind(options));
-        services.Configure<SwaggerConfiguration>(options => configuration.GetSection("Swagger").Bind(options));
+        services.Configure<ConnectionStringSettings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
+        services.Configure<SwaggerSettings>(options => configuration.GetSection("Swagger").Bind(options));
     }
 
     private static void RegisterSwaggerServices(IServiceCollection services, IConfiguration configuration)
     {
-        SwaggerConfiguration swaggerSettings = configuration.GetSection("Swagger").Get<SwaggerConfiguration>()!;
+        SwaggerSettings swaggerSettings = configuration.GetSection("Swagger").Get<SwaggerSettings>()!;
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc(swaggerSettings.Version, new OpenApiInfo
