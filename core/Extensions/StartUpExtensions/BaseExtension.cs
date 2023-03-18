@@ -49,6 +49,7 @@ public static class BaseExtension
     private static void RegisterIOptionsServices(IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<ConnectionStringSettings>(options => configuration.GetSection("ConnectionStrings").Bind(options));
+        services.Configure<AzureBlobSettings>(options => configuration.GetSection("AzureBlobStorage").Bind(options));
         services.Configure<SwaggerSettings>(options => configuration.GetSection("Swagger").Bind(options));
     }
 
