@@ -1,4 +1,5 @@
 ﻿using core.Models.AppSettings;
+using core.Utilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +18,7 @@ public static class LoggingExtension
     /// <returns>Returns Services <see cref="IServiceCollection"/></returns>
     public static IServiceCollection RegisterSerilogLogging(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<LoggingSettings>(options => configuration.GetSection("Logging").Bind(options));
+        services.Configure<LoggingConfiguration>(options => configuration.GetSection("Logging").Bind(options));
 
         return services;
     }
