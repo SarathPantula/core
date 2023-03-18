@@ -31,11 +31,11 @@ public class FileLoggingSettings
     /// <summary>
     /// File Size Limit in Bytes
     /// </summary>
-    public long FileSizeLimitBytes { get; set; }
+    public long FileSizeLimitBytes { get; set; } = 1073741824;
     /// <summary>
     /// Count of files to be retained
     /// </summary>
-    public int RetainedFileCountLimit { get; set; }
+    public int RetainedFileCountLimit { get; set; } = 31;
     /// <summary>
     /// Rolling Interval
     /// </summary>
@@ -43,11 +43,11 @@ public class FileLoggingSettings
     /// <summary>
     /// Roll on File Size Limit
     /// </summary>
-    public bool RollOnFileSizeLimit { get; set; }
+    public bool RollOnFileSizeLimit { get; set; } = true;
     /// <summary>
     /// Minimum Logging Level
     /// </summary>
-    public string MinLogLevel { get; set; } = null!;
+    public LogLevel LogLevel { get; set; } = null!;
 }
 
 /// <summary>
@@ -58,7 +58,7 @@ public class ConsoleLoggingSettings
     /// <summary>
     /// Mimimum Logging Level
     /// </summary>
-    public string MinLogLevel { get; set; } = null!;
+    public LogLevel LogLevel { get; set; } = null!;
 }
 
 /// <summary>
@@ -70,4 +70,20 @@ public class SeqLoggingSettings
     /// Server URL
     /// </summary>
     public string ServerUrl { get; set; } = null!;
+
+    /// <summary>
+    /// Mimimum Logging Level
+    /// </summary>
+    public LogLevel LogLevel { get; set; } = null!;
+}
+
+/// <summary>
+/// Log Level
+/// </summary>
+public class LogLevel
+{
+    /// <summary>
+    /// Default
+    /// </summary>
+    public string Default { get; set; } = null!;
 }
