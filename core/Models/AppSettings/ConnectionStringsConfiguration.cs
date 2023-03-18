@@ -6,7 +6,13 @@
 public class ConnectionStringsConfiguration
 {
     /// <summary>
-    /// PostgreSQLDbContext
+    /// PostgresConnectionString
     /// </summary>
-    public string PostgreSQLDbContext { get; set; } = null!;
+    public string PostgresConnectionString { get; set; } = null!;
+
+    /// <summary>
+    /// Azure Blob Storage Connection String
+    /// </summary>
+
+    public string AzureBlobStorageConnectionString { get; set; } = null!;
 }
