@@ -27,6 +27,7 @@ public static class LoggingExtension
         services.AddLogging(loggingBuilder =>
         {
             loggerConfiguration
+            .MinimumLevel.Is(LogEventLevel.Verbose)
             .WriteTo.File(loggingSettings.File.Path ?? "Logs/log.log",
                 restrictedToMinimumLevel: GetLogLevel(loggingSettings.File.LogLevel.Default),
                 rollingInterval: GetRollingInterval(loggingSettings.File.RollingInterval),
@@ -43,6 +44,7 @@ public static class LoggingExtension
 
     private static LogEventLevel GetLogLevel(string minLogLevel) => minLogLevel?.ToLower() switch
     {
+        "trace" => LogEventLevel.Verbose,
         "debug" => LogEventLevel.Debug,
         "information" => LogEventLevel.Information,
         "warning" => LogEventLevel.Warning,

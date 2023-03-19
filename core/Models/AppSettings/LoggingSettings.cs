@@ -17,6 +17,10 @@ public class LoggingSettings
     /// Seq Settings
     /// </summary>
     public SeqLoggingSettings Seq { get; set; } = null!;
+    /// <summary>
+    /// Minimum Logging Level
+    /// </summary>
+    public LogLevel LogLevel { get; set; } = null!;
 }
 
 /// <summary>
