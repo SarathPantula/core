@@ -11,3 +11,5 @@ core/Models/AppSettings/ConnectionStringSettings.cs @SarathPantula
 core/Models/AppSettings/LoggingSettings.cs @SarathPantula
 core/Models/AppSettings/SwaggerSettings.cs @SarathPantula
 core/Models/AppSettings/AzureBlobSettings.cs @SarathPantula
+core/Utilities/FileUtility.cs @SarathPantula
+core/Utilities/JsonUtility.cs @SarathPantula
