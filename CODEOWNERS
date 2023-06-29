@@ -13,3 +13,6 @@ core/Models/AppSettings/SwaggerSettings.cs @SarathPantula
 core/Models/AppSettings/AzureBlobSettings.cs @SarathPantula
 core/Utilities/FileUtility.cs @SarathPantula
 core/Utilities/JsonUtility.cs @SarathPantula
+.DS_Store @SarathPantula
+core/Base/GuidGenerator.cs @SarathPantula
+core/Models/Entity.cs @SarathPantula
