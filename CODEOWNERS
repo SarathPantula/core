@@ -16,3 +16,4 @@ core/Utilities/JsonUtility.cs @SarathPantula
 .DS_Store @SarathPantula
 core/Base/GuidGenerator.cs @SarathPantula
 core/Models/Entity.cs @SarathPantula
+core/Base/UnitOfWork/UnitOfWork.cs @SarathPantula
