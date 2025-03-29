@@ -19,41 +19,26 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         _context = context;
     }
-
-    /// <summary>
-    /// GetAsync
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
+    
+    /// <inheritdoc />
     public async Task<TEntity> GetAsync(Guid id)
     {
         return (await _context.Set<TEntity>().FindAsync(id))!;
     }
-
-    /// <summary>
-    /// GetAllAsync
-    /// </summary>
-    /// <returns></returns>
+    
+    /// <inheritdoc />
     public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         return await _context.Set<TEntity>().ToListAsync();
     }
-
-    /// <summary>
-    /// FindAsync
-    /// </summary>
-    /// <param name="predicate"></param>
-    /// <returns></returns>
+    
+    /// <inheritdoc />
     public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
     {
         return await _context.Set<TEntity>().Where(predicate).ToListAsync();
     }
 
-    /// <summary>
-    /// AddAsync
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <returns></returns>
+    /// <inheritdoc />
     public async Task<TEntity> AddAsync(TEntity entity)
     {
         await _context.Set<TEntity>().AddAsync(entity);
@@ -61,34 +46,38 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return entity;
     }
 
-    /// <summary>
-    /// AddRangeAsync
-    /// </summary>
-    /// <param name="entities"></param>
-    /// <returns></returns>
-    public async Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities)
+    /// <inheritdoc />
+    public async Task<IEnumerable<TEntity>> AddRangeAsync(IList<TEntity> entities)
     {
         await _context.Set<TEntity>().AddRangeAsync(entities);
         await _context.SaveChangesAsync();
         return entities;
     }
 
-    /// <summary>
-    /// RemoveAsync
-    /// </summary>
-    /// <param name="entity"></param>
-    /// <returns></returns>
+    /// <inheritdoc />
+    public async Task<TEntity> UpdateAsync(TEntity entity)
+    {
+        _context.Entry(entity).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return entity;
+    }
+
+    /// <inheritdoc />
+    public async Task RemoveByIdAsync(Guid id)
+    {
+        var entity = await _context.Set<TEntity>().FindAsync(id);
+        if (entity != null)
+            _context.Set<TEntity>().Remove(entity);
+    }
+
+    /// <inheritdoc />
     public async Task RemoveAsync(TEntity entity)
     {
         _context.Set<TEntity>().Remove(entity);
         await _context.SaveChangesAsync();
     }
 
-    /// <summary>
-    /// RemoveRangeAsync
-    /// </summary>
-    /// <param name="entities"></param>
-    /// <returns></returns>
+    /// <inheritdoc />
     public async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
     {
         _context.Set<TEntity>().RemoveRange(entities);

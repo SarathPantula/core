@@ -13,20 +13,13 @@ public class RedisConnectionHelper
     /// </summary>
     static RedisConnectionHelper()
     {
-        RedisConnectionHelper.lazyConnection = new Lazy<ConnectionMultiplexer>(() => {
-            return ConnectionMultiplexer.Connect(ConfigurationManager.AppSetting["RedisURL"]!);
-        });
+        RedisConnectionHelper.LazyConnection = new Lazy<ConnectionMultiplexer>(()
+            => ConnectionMultiplexer.Connect(ConfigurationManager.AppSetting["RedisURL"]!));
     }
-    private static readonly Lazy<ConnectionMultiplexer> lazyConnection;
+    private static readonly Lazy<ConnectionMultiplexer> LazyConnection;
 
     /// <summary>
     /// Redis Connection
     /// </summary>
-    public static ConnectionMultiplexer Connection
-    {
-        get
-        {
-            return lazyConnection.Value;
-        }
-    }
+    public static ConnectionMultiplexer Connection => LazyConnection.Value;
 }

@@ -40,7 +40,21 @@ public interface IRepository<TEntity> where TEntity : class
     /// </summary>
     /// <param name="entities"></param>
     /// <returns></returns>
-    Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities);
+    Task<IEnumerable<TEntity>> AddRangeAsync(IList<TEntity> entities);
+
+    /// <summary>
+    /// Update Async
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<TEntity> UpdateAsync(TEntity entity);
+    
+    /// <summary>
+    /// Remove By Id Async
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task RemoveByIdAsync(Guid id);
 
     /// <summary>
     /// RemoveAsync

@@ -52,7 +52,7 @@ public class CacheService : ICacheService
 
         var options = new DistributedCacheEntryOptions
         {
-            AbsoluteExpiration = expiresIn.HasValue ? DateTime.Now.Add(expiresIn.Value) : (DateTime?)null
+            AbsoluteExpiration = DateTime.Now.Add(expiresIn.Value)
         };
         await _cache.SetStringAsync(key, JsonConvert.SerializeObject(data), options);
     }

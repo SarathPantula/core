@@ -6,7 +6,15 @@
 public abstract class DefaultResponse : IDefaultResponse
 {
     /// <summary>
+    /// Ctor
+    /// </summary>
+    protected DefaultResponse()
+    {
+        Errors = [];
+    }
+
+    /// <summary>
     /// Errors
     /// </summary>
-    public List<ErrorInfo> Errors { get; set; } = new List<ErrorInfo>();
+    public List<ErrorInfo> Errors { get; set; }
 }
