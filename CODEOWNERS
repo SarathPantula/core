@@ -17,3 +17,9 @@ core/Utilities/JsonUtility.cs @SarathPantula
 core/Base/GuidGenerator.cs @SarathPantula
 core/Models/Entity.cs @SarathPantula
 core/Base/UnitOfWork/UnitOfWork.cs @SarathPantula
+core/.idea/.idea.core/.idea/.gitignore @SarathPantula
+core/.idea/.idea.core/.idea/indexLayout.xml @SarathPantula
+core/.idea/.idea.core/.idea/vcs.xml @SarathPantula
+core/Cache/CacheService.cs @SarathPantula
+core/Repositories/IRepository.cs @SarathPantula
+core/Repositories/Repository.cs @SarathPantula
